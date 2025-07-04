@@ -65,6 +65,12 @@ class PostController extends Controller
             return redirect()->route('posts.index')->with('error_message', '不正なアクセスです。');
         }
 
+        // バリデーション
+        $request->validate([
+            'title' => 'max:40',
+            'content' => 'max:200'
+        ]);
+
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
